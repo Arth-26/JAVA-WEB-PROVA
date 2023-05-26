@@ -1,6 +1,7 @@
 package br.com.unifip.prova_web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class principalServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Veiculo registrado com sucesso!");
+		
 		
 		String nomeVeiculo = request.getParameter("veiculo");
 		String id = request.getParameter("id");
@@ -37,16 +38,20 @@ public class principalServlet extends HttpServlet {
 		veiculo.setId(id);
 		veiculo.setNome(nomeVeiculo);
 		veiculo.setMarca(marca);
-		Consessionaria lista = new Consessionaria();
-		lista.adicionarVeiculo(veiculo);
+		Consessionaria bd = new Consessionaria();
+		bd.adicionarVeiculo(veiculo);
+		
+		List<Veiculos> lista = bd.verLista();
 		
 		//CONEXÃO AO JSP
 		RequestDispatcher disp = request.getRequestDispatcher("/listaDeVeiculos.jsp");
-		request.setAttribute("lsita", lista);
+		request.setAttribute("lista", lista);
 		request.setAttribute("veiculo", veiculo.getNome());
 		request.setAttribute("id", veiculo.getId());
 		request.setAttribute("marca", veiculo.getMarca());
 		disp.forward(request, response);
+		
+		System.out.println("Veiculo registrado com sucesso!");
 	}
 
 	/**

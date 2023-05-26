@@ -1,6 +1,8 @@
 package br.com.unifip.prova_web;
 
 import java.util.List;
+
+
 import java.util.ArrayList;
 
 public class Consessionaria {
@@ -26,5 +28,20 @@ public class Consessionaria {
 	
 	public List<Veiculos> verLista(){
 		return Consessionaria.lista_de_veiculos;
+	}
+
+	public void removerVeiculo(String id) {
+		
+			Veiculos veiculoRemover = null;
+		    
+			for (Veiculos veiculo : lista_de_veiculos) {
+		        if (veiculo.getId() == id) {
+		            veiculoRemover = veiculo;
+		            break;
+		        }
+		    }
+		    if (veiculoRemover != null) {
+		        lista_de_veiculos.remove(veiculoRemover);
+		    }
 	}
 }

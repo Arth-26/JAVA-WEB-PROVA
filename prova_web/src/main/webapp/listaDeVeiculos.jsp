@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.list, br.com.unifip.prova_web.servlet.Veiculos"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,30 @@
 </head>
 <body>
     <h1>LISTA DE VEICULOS</h1>
-    <ul>
-    	<%List<Veiculos> lista = (List<Veiculos>)request.getAttribute("lista"); 
-    	for(Veiculos veic : lista) { %>
-    	<li><%=vei %></li>
-    </ul>
+    <table>
+	        <tr>
+	            <th></th>
+	            <th>Nome</th>
+	            <th>Marca</th>
+	            <th>Id</th>
+	            <th></th>
+	        </tr>
+	        
+	        <c:forEach items="${lista}" var="veiculo" varStatus="status">
+	            <tr>
+	                <td>${status.index + 1}</td>
+	                <td>${veiculo.nome}</td>
+	                <td>${veiculo.marca}</td>
+	                <td>${veiculo.id}</td>
+	            </tr>
+	            
+	            <td>
+		           <form action="/prova_web/removerCarrosServlet" method="post" style="display:inline;">
+			           <input type="hidden" name="id" value="${veiculo.id}" />
+			           <button type="submit">REMOVER</button>
+		           </form>
+	           </td>
+	        </c:forEach>       
+	    </table>
 </body>
 </html>
